@@ -15,7 +15,7 @@ transform=transforms.Compose([
 train_dataset=torchvision.datasets.MNIST(
     root='./data',train=True,download=True,transform=transform
 )
-test_dataset=torchvision.datasets.MINST(
+test_dataset=torchvision.datasets.MNIST(
     root='./data',train=False,download=True,transform=transform
 )
 
@@ -46,7 +46,7 @@ model=MNISTClassifier().to(device)
 
 #Loss function and optimizer
 loss_function=nn.CrossEntropyLoss()
-optimizer = torch.optim.Adam(model.parameters(),lr=0.001)
+optimizer = optim.Adam(model.parameters(),lr=0.001)
 
 def train_epoch(model,train_loader,loss_function,optimizer,device):
     model.train()
@@ -83,7 +83,7 @@ def evaluate(model,test_loader,device):
     total=0
 
     with torch.no_grad():
-        for inputs,targrts in test_loader:
+        for inputs,targets in test_loader:
             inputs,targets=inputs.to(device),targets.to(device)
             outputs=model(inputs)
             _,predicted=outputs.max(1)
